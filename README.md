@@ -151,26 +151,4 @@ Endpoint	Method	Description
 /getLeaderboard	GET	View top recyclers
 /redeemReward	POST	Redeem coins for rewards
 
-🧑‍🔧 Want to Contribute?
-We welcome contributions — from AI training, backend optimization to reward curation. Fork the repo, open a PR, or contact the team.
-
-📜 License
-This project is licensed under the MIT License.
-Fork it, build it, and help us build a cleaner world 🌍
-
-yaml
-Copy
-Edit
-
 ---
-
-Let me know if you'd like this as a downloadable file or need a suggested folder structure for GitHub (`/frontend`, `/backend`, `/ai-model`, etc.) or even deployment instructions for Spring Boot + Flask!
-
-
-
-
-
-
-
-
-Ask ChatGPT
