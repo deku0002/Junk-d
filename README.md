@@ -1,106 +1,160 @@
-# Junk-d
-Gamified Waste Management System  Households and users log waste pickups or recycling via QR code tags.  Get points (tokenized via blockchain or simple backend) and redeem for rewards.  Add AI image recognition to detect garbage types (recyclable, e-waste, etc.).
+♻️ Junk’d – Gamified Waste Sorting & Recycling App
+🚀 Project Idea Submission – Hackathon 2025
+Team Name: vibe_coders
+Project Name: Junk’d
+Category: Sustainability / AI / Smart Cities / Web3
+Tech Stack:
 
-# ♻ Junk'd – Gamified Waste Management System
+Frontend: React Native (Mobile App)
 
-### 🚀 Project Idea Submission – Hackathon 2025
+Backend: Java (Spring Boot + MySQL/MongoDB)
 
-Team Name: [vibe_coders]  
-Project Name: Junk'd  
-Category: Sustainability / Smart Cities / Web3 / AI  
-Tech Stack: React Native (Frontend), Node.js + MongoDB (Backend), TensorFlow.js (AI Image Recognition), QR Code Scanner, Optional Blockchain Layer (Polygon / Firebase-based token system)
+AI Module: Python (TensorFlow/Keras + Flask API)
 
----
+QR Code Scanner: React Native plugin or device camera
 
-## 🌍 Problem Statement
+Token System: Junk’d Coin (off-chain in DB or on-chain via Polygon/Firebase)
 
-Waste management in urban and semi-urban areas is inefficient, unengaging, and lacks real-time user participation. Citizens often don't feel incentivized to properly segregate or recycle their waste.
+🌍 Problem Statement
+Most people don’t recycle because it feels like a chore with no reward. Cities struggle with inefficient waste segregation, and recyclables get mixed into landfills.
 
----
+🎯 Our Solution: Junk’d
+A fun, gamified app where users snap a picture of their waste before disposal. Our Python-based AI checks for correct sorting and recyclable content. Scores convert to Junk’d Coins, which can be exchanged for rewards. Users compete on leaderboards and track their environmental impact.
 
-## 🎯 Our Solution: Junk’d
+🔑 Key Features
+📸 AI Waste Sorting Score (Python)
+Built using Python (TensorFlow or OpenCV), hosted via a lightweight Flask API
 
-Junk’d is a gamified, AI-powered waste management platform that turns boring trash disposal into a fun, rewarding, and competitive experience.
+Classifies waste image into categories: plastic, paper, e-waste, organic, metal, mixed
 
-### 🔑 Key Features
+Assigns a score based on:
 
-- 📲 QR-based Waste Logging  
-  Users scan QR tags on their bins to log waste pickups and types. Each scan earns points.
+Whether the waste is correctly sorted
 
-- 🧠 AI Waste Type Detection  
-  Built-in AI model detects garbage type (plastic, organic, e-waste, etc.) via image recognition before logging.
+Presence of recyclable items
 
-- 🪙 EcoPoint Token System  
-  Users earn EcoPoints based on the type & volume of waste recycled. Points can be redeemed for real-life rewards.
+Cleanliness or contamination (future enhancement)
 
-- 🎁 Rewards Marketplace  
-  Points can be exchanged for brand coupons, sustainable products, or donation credits.
+📲 QR Code Waste Logging
+Each household/bin has a unique QR
 
-- 🏆 Community Leaderboards  
-  Neighborhoods, hostels, and schools can compete on sustainability metrics.
+Users scan the bin QR, upload image of waste
 
-- 🧾 Smart Waste Reports  
-  Track your personal eco-impact and waste stats. Admins can view zone-based analytics.
+Image & QR pair is sent to backend for verification + scoring
 
----
+🪙 Junk’d Coin Token System
+Score from AI → converted into Junk’d Coins
 
-## 💡 Why "Junk’d"?
+Stored in user's wallet
 
-Because getting rewarded for your junk just got cool. It’s not just recycling anymore — it’s flexing your **eco-drip.
+Coins can be redeemed for:
 
----
+Coupons (e.g., Amazon, Flipkart)
 
-## 🧩 Architecture Overview
+Eco-products (e.g., reusable bags, compost bins)
 
-- Frontend: React Native app for Android/iOS
-- Backend: Node.js + Express + MongoDB or Firebase
-- QR Tag System: Unique codes assigned per user/bin
-- AI Module: TensorFlow.js model trained to identify recyclables vs. non-recyclables
-- Token Logic: On-chain (Polygon) or off-chain token tracking (Firebase)
-- Admin Dashboard: Web interface to track waste patterns and zone performance
+Donation to green initiatives
 
----
+🏆 Leaderboards & Community Challenge
+Daily, weekly, and monthly leaderboards
 
-## 🏆 Impact Goals
+Compete by location (hostel, school, society)
 
-- Encourage proper waste segregation at source
-- Digitally incentivize sustainable behavior
-- Enable better data collection for municipalities and recyclers
-- Drive youth engagement via gamification
+Top recyclers earn bonus coins & badges
 
----
+📈 Smart Reports
+Users can track:
 
-## 💰 Monetization Potential
+Waste recycled
 
-- 🎯 Brand-Sponsored Rewards
-- 🏙 Sell as SaaS to housing societies & schools
-- 📊 Waste data analytics for municipalities
-- 🧺 B2B recyclable material leads for local dealers
+Coins earned
 
----
+CO2 saved (estimated)
 
-## 🛠 Future Roadmap
+Admins can view zone-wise data and trends
 
-- 🔗 Full Web3 integration for token interoperability
-- 🗑 Smart Bin Integration (via IoT)
-- 🎓 College leaderboard partnerships
-- 📍 City-wide deployment with government partnerships
+💡 Why "Junk’d"?
+Because your junk just earned you real value. Junk’d turns boring waste disposal into a flex-worthy sustainability game.
 
----
+🧩 Architecture Overview
+plaintext
+Copy
+Edit
+Mobile App (React Native)
+      |
+      |  [QR + Waste Image]
+      v
+Java Backend (Spring Boot)
+      |
+      |----> Calls Python Flask API (AI)
+      |           |
+      |           |--> Returns score & waste type
+      |
+      |----> Stores data, updates coin balance, leaderboard
+      |
+      v
+Reward System + Dashboard
+- Frontend: React Native (QR Scanner, Camera, User Dashboard)
+- Backend: Java Spring Boot
+REST APIs: /submitWaste, /getLeaderboard, /redeemCoins
 
-## 🤝 Team
+Database: MongoDB/MySQL
 
-- [Devansh] – Frontend Dev  
-- [Devansh] – Backend & API  
-- [Ayush] – AI/ML Model  
-- [Divesh] – blockchain
+- AI Module: Python Flask API
+Model trained in TensorFlow or PyTorch
 
----
+Dockerized for deployment
 
-## 🧠 Inspiration
+Response: { "wasteType": "plastic", "score": 85 }
 
-Inspired by the idea that real change begins at home. Why not reward everyday eco-heroes while fixing one of the planet’s biggest problems — waste?
+🏆 Impact Goals
+Incentivize eco-friendly behavior through gamification
 
----
+Improve real-time household waste segregation
 
-> “You got Junk’d – and the Earth says thank you.” 🌎
+Support local recyclers with better sorted input
+
+Engage youth in daily sustainability efforts
+
+💰 Monetization Potential
+🛍 Partner brands sponsor rewards & coupons
+
+🏫 Sell subscription to hostels, societies, schools (SaaS model)
+
+📊 Provide analytics to government/NGOs
+
+♻️ Match recyclers with high-volume collectors
+
+🛠 Future Roadmap
+🗑 Smart Bin Hardware Integration (IoT + weight sensors + camera)
+
+💬 AI Chatbot for waste sorting guidance
+
+🔗 Full blockchain token tracking via Polygon
+
+🧪 Machine Learning model to auto-score bin images without manual input
+
+🥇 Eco Badges + NFT collectibles
+
+🤝 Team
+Devansh – Java Backend + React Native Integration
+
+Ayush – Python AI Model + Flask API
+
+Divesh – Junk’d Coin Logic + Leaderboard
+(Optional roles: UI/UX designer, deployment manager)
+
+🧠 Inspiration
+We wanted to solve a real-world problem — but make it fun. By turning waste into a competitive, rewarding experience, we encourage a new generation of eco-warriors to take action.
+
+“Sort it. Snap it. Score it. Get Junk’d. 🌍💚”
+
+Let me know if you'd like:
+
+✅ Sample API design
+✅ Flask + Java backend integration guide
+✅ Sample AI model architecture
+✅ README.md version of this submission
+✅ Figma/Wireframe design ideas
+
+Just say the word!
