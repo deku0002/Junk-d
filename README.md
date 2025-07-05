@@ -123,9 +123,9 @@ Educate and gamify sustainability for youth and citizens
 ♻️ Marketplace for local recyclers to connect with users
 
 👨‍💻 Team Members
-Devansh – Java Backend & API Integration
+Devansh – App Development, Java Backend, Flask API & API Integration 
 
-Ayush – Python AI Model + Flask API
+Ayush – Python AI Model 
 
 Divesh – Junk’d Coin Logic & Leaderboard System
 
