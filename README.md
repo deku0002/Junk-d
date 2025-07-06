@@ -1,13 +1,8 @@
 # ♻️ Junk’d – Gamified Waste Sorting & Recycling App
 
 **Team Name:** vibe_coders  
-<<<<<<< HEAD
-**Category:** Sustainability / Smart Cities / AI / Web3  
-**Hackathon:** Hackathon 2025  
-=======
 **Category:** Social Impact/ Sustainability / Smart Cities / AI / Web3  
 **Hackathon:** CodeStorm Hackathon 2025  
->>>>>>> b0a095915bd8b6b12bc9da137e1b5870f558292a
 **Project Name:** Junk’d
 
 ---
