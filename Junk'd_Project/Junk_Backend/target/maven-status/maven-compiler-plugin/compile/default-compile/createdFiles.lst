@@ -1,0 +1,6 @@
+com\example\junk\JunkApplication.class
+com\example\junk\config\WebConfig.class
+com\example\junk\service\WasteAnalysisService.class
+com\example\junk\dto\WasteAnalysisResponse.class
+com\example\junk\controller\WasteAnalysisController.class
+com\example\junk\dto\WasteAnalysisRequest.class
