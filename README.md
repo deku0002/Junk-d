@@ -1,118 +1,142 @@
-♻️ Junk’d – AI-Driven Waste Sorting & Reward App (Offline-Ready)
-Team Name: vibe_coders
-Category: Social Impact / Sustainability / Smart Cities / AI
-Hackathon: CodeStorm Hackathon 2025
-Project Name: Junk’d
+# ♻️ Junk’d – AI-Driven Waste Sorting & Reward App (Offline-Ready)
 
-📱 Overview
-Junk’d is a gamified Android app that makes waste disposal rewarding. Using offline-capable AI, users just take a photo of their waste. The app classifies it in real-time, scores it, and rewards the user with virtual Junk’d Coins. All powered by an integrated Python-based AI model, accessible via a local Flask API.
+**🚀 Team Name:** `vibe_coders`  
+**🏁 Hackathon:** CodeStorm Hackathon 2025  
+**🏷️ Category:** Social Impact · Sustainability · Smart Cities · AI  
+**📱 Project Name:** `Junk’d`
 
-🌍 Problem Statement
-Despite increasing awareness, people often don’t sort their waste due to lack of motivation or tools. There’s little feedback or reward for doing the right thing, making proper segregation a challenge.
+---
 
-🎯 Our Solution
-With Junk’d, users click a picture of their waste before disposing. Our Python + TensorFlow Lite model runs via a Flask server on the same device/network and analyzes the image to determine:
+## 📱 Overview
 
-The type of waste
+**Junk’d** is a gamified Android app that makes waste disposal **rewarding**.  
+Users take a photo of their waste, and the app:
 
-Whether it’s sorted properly
+- Detects the **type of waste**
+- Calculates a **score**
+- Rewards users with **virtual Junk’d Coins**
 
-Whether it’s recyclable
+All powered by a **Python Flask API** using a **TensorFlow Lite** model — fully runnable **offline** on the same device or network.
 
-Users get a score and virtual coins based on the result. Offline usage is possible by running the AI on the device without any cloud server dependency.
+---
 
-🔑 Key Features
-📸 AI Waste Classification (Offline Flask)
-TFLite model (TensorFlow Lite) detects:
+## 🌍 Problem
 
-Plastic, Organic, Paper, Glass, Metal, e-Waste, Others
+Even with increasing awareness, **waste segregation remains low**.  
+Why? Because there’s no incentive or feedback.
 
-Built-in Flask API running locally on 0.0.0.0:5000
+Most people throw trash without knowing if it’s sorted or recyclable.  
+**Junk’d** changes that by making waste disposal **fun**, **rewarding**, and **educational**.
 
-Score calculation based on sorting & recyclability
+---
 
-🪙 Reward System (Junk’d Coins)
-Coins awarded based on AI-determined score
+## 🎯 Solution
 
-Coins shown in wallet UI
+With **Junk’d**, users simply:
 
-Redeem flow under development (no backend required)
+1. 📸 Click a photo of their waste  
+2. 🧠 The AI model predicts waste type, recyclability, and sorting accuracy  
+3. 🪙 Users get a score and **Junk’d Coins** — instantly on the app
 
-🧠 Fully Local Flask AI Inference
-No Spring Boot or external server needed
+✅ Works offline (runs Flask & model locally)  
+🚫 No need for cloud or external backend
 
-Ideal for hackathon demo and offline use
+---
 
-🧾 Results UI
-Waste type, score, recyclability, sorted status
+## 🔑 Features
 
-User feedback on how to improve sorting
+### 🤖 AI Waste Classification (Offline)
+- Detects: **Plastic, Organic, Paper, Glass, Metal, e-Waste, Others**
+- Powered by **TFLite model** (TensorFlow Lite)
+- Served via local **Flask API** (`http://0.0.0.0:5000`)
 
-💡 Why "Junk’d"?
-Because your junk just earned you rewards. Sustainability doesn’t have to be boring — we turn every disposal into a fun mission for the planet.
+### 🪙 Reward System – Junk’d Coins
+- Coins awarded based on AI score
+- Wallet shows balance (UI)
+- Coin redemption flow under development (no backend yet)
 
-🧩 Tech Stack
-Layer	Tech
-Frontend (App)	Android (Java + XML)
-AI Inference	Python + TensorFlow Lite + Flask (Local)
-Model	Trained with Keras → Converted to TFLite
-Reward System	Local wallet coins (no backend)
+### 🧠 Fully Offline AI Inference
+- No Spring Boot needed
+- Ideal for hackathons, schools, and disconnected environments
 
-🧠 Architecture (Updated MVP)
-plaintext
-Copy
-Edit
+### 🧾 Result UI
+- Waste type
+- Properly sorted: ✅ / ❌  
+- Recyclable: ✅ / ❌  
+- Score bar + coins
+
+---
+
+## 💡 Why “Junk’d”?
+
+Because your *junk* just earned you **eco-rewards**.  
+We turn every disposal into a **mission for the planet**.  
+> *Sort it. Snap it. Score it. Get Junk’d.* 🌱
+
+---
+
+## 🧩 Tech Stack
+
+| Layer           | Technology                                  |
+|-----------------|----------------------------------------------|
+| Frontend (App)  | Android (Java + XML)                         |
+| AI Inference    | Python + Flask + TensorFlow Lite (TFLite)    |
+| Model           | Trained in Keras → Converted to `.tflite`    |
+| Backend         | None (Fully Offline MVP)                     |
+| Token System    | Local Junk’d Coins (Simulated UI wallet)     |
+
+---
+
+## 🧠 Architecture (MVP)
+
+```plaintext
 [Android App] ──(HTTP POST)──> [Flask API on localhost or LAN]
      ↓                                  ↓
   Image Upload                     TFLite Model
      ↓                                  ↓
 View Result UI <─────── JSON: Waste Type, Score, Coins
-✅ Current Progress (MVP Complete)
-✅ Android app UI with camera/gallery input
+✅ What’s Done
+✅ Camera/Gallery image selection
 
-✅ Local Flask API with working AI model
+✅ Local Flask AI API with image classification
 
-✅ JSON response mapped to UI
+✅ Android UI to display results and coin wallet
 
-✅ Scoring, coin logic, and waste detection fully working
+✅ Offline-ready for demo and deployment
 
-✅ Offline-ready (Flask + model run locally)
+🔜 What’s Next (Post-Hackathon)
+📦 Move TFLite inference to on-device (Android)
 
-🔜 Post-Hackathon Roadmap
-🌐 Replace Flask with on-device TensorFlow Lite for true offline AI
+🌐 Re-enable Spring Boot backend for:
 
-☁️ Reintegrate Spring Boot backend for:
-
-User profiles
+User authentication
 
 Leaderboards
 
-Coin redemption
+Coin redemption history
 
-📊 Admin dashboard for waste insights
+📊 Admin dashboard
 
-🏆 Impact Goals
-Encourage responsible waste sorting at source
+🔗 Polygon / off-chain token integration
 
-Reward citizens for making eco-conscious choices
+💰 Monetization Potential
+🛍 Sponsored rewards & eco-friendly brands
 
-Support gamified sustainability for students and urban users
+🏫 SaaS for hostels, societies, schools
 
-💰 Monetization (Future Scope)
-Sponsored coupons for eco-products
+📈 Waste analytics for municipalities/NGOs
 
-Marketplace for verified recyclers
+👨‍💻 Team Contributions
+Member	Contribution
 
-SaaS dashboard for hostels/schools/societies
-
-👨‍💻 Team Members
 Devansh Sharma – Led complete development of the Android app, integrated the Flask AI API, handled UI/UX, backend, and API logic.
 
 Ayush – Built and trained the AI waste classification model using TensorFlow and optimized it for mobile using TFLite.
 
 Divesh – Contributed by designing the project presentation (PPT) and helped during initial planning.
 
-🧪 Sample AI Output (Live Demo)
+
+🧪 Sample AI Output
 json
 Copy
 Edit
@@ -120,15 +144,21 @@ Edit
   "prediction": "Plastic",
   "confidence": 99.32
 }
-→ Internally mapped to:
-✅ wasteType: Plastic
-✅ sorted: true
-✅ recyclableDetected: true
-✅ score: 87
+→ Mapped internally to:
 
-📦 Sample Endpoint (Current Live Flask API)
+json
+Copy
+Edit
+{
+  "wasteType": "Plastic",
+  "sorted": true,
+  "recyclableDetected": true,
+  "score": 87
+}
+📦 API Endpoint
 Endpoint	Method	Description
-/predict	POST	Upload image, get classification result
+/predict	POST	Upload image and get waste classification
 
-“Sort it. Snap it. Score it. Get Junk’d.” 🌱
-Ready for demo without external servers. Offline. Fast. Rewarding.
+🌱 “Sort it. Snap it. Score it. Get Junk’d.”
+Ready for offline demo.
+No servers. No internet. Just clean waste, clean code, and cool coins.
