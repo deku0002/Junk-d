@@ -42,6 +42,8 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
 
+    implementation("org.tensorflow:tensorflow-lite:2.13.0")
+
 
     // Volley for networking
     implementation("com.android.volley:volley:1.2.1")

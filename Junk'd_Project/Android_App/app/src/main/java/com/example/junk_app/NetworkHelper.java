@@ -2,7 +2,6 @@ package com.example.junk_app;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.util.Base64;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -11,10 +10,13 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -24,11 +26,8 @@ public class NetworkHelper {
 
     private static final String TAG = "NetworkHelper";
 
-    // ✅ Use this for emulator testing
-    // private static final String BASE_URL = "http://10.0.2.2:8080/api";
-
-    // ✅ Use this for real device on same Wi-Fi (replace with correct IP)
-    private static final String BASE_URL = "http://10.0.2.2:8080/api";
+    // ✅ Your Flask server endpoint
+    private static final String BASE_URL = "http://192.168.29.252:5000/predict";
 
     private final OkHttpClient client;
     private final Context context;
@@ -42,68 +41,56 @@ public class NetworkHelper {
                 .build();
     }
 
+    // ✅ FIXED: Send image as multipart/form-data
     public void analyzeWaste(Bitmap bitmap, AnalysisCallback callback) {
         Log.d(TAG, "Starting waste analysis...");
 
-        try {
-            String base64Image = bitmapToBase64(bitmap);
-
-            JSONObject jsonRequest = new JSONObject();
-            jsonRequest.put("imageData", base64Image);
-            jsonRequest.put("userId", "user_" + System.currentTimeMillis());
-            jsonRequest.put("timestamp", String.valueOf(System.currentTimeMillis()));
-
-            RequestBody body = RequestBody.create(
-                    MediaType.parse("application/json"),
-                    jsonRequest.toString()
-            );
-
-            Request request = new Request.Builder()
-                    .url(BASE_URL + "/waste/analyze")
-                    .post(body)
-                    .addHeader("Content-Type", "application/json")
-                    .build();
-
-            client.newCall(request).enqueue(new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    Log.e(TAG, "Network request failed", e);
-                    callback.onError("Network error: " + e.getMessage());
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    try {
-                        String responseBody = response.body().string();
-                        Log.d(TAG, "Response: " + responseBody);
-
-                        if (response.isSuccessful()) {
-                            WasteAnalysisResult result = parseResponse(responseBody);
-                            callback.onSuccess(result);
-                        } else {
-                            callback.onError("Server error: " + response.code());
-                        }
-
-                    } catch (Exception e) {
-                        Log.e(TAG, "Error parsing response", e);
-                        callback.onError("Error parsing response: " + e.getMessage());
-                    }
-                }
-            });
-
-        } catch (Exception e) {
-            Log.e(TAG, "Error creating request", e);
-            callback.onError("Error creating request: " + e.getMessage());
-        }
-    }
-
-    private String bitmapToBase64(Bitmap bitmap) {
+        // Convert bitmap to JPEG byte array
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, baos);
         byte[] imageBytes = baos.toByteArray();
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+
+        // Create multipart request body with image
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file", "image.jpg",
+                        RequestBody.create(imageBytes, MediaType.parse("image/jpeg")))
+                .build();
+
+        Request request = new Request.Builder()
+                .url(BASE_URL)  // should be just /predict
+                .post(requestBody)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e(TAG, "Network request failed", e);
+                callback.onError("Network error: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    String responseBody = response.body().string();
+                    Log.d(TAG, "Response: " + responseBody);
+
+                    if (response.isSuccessful()) {
+                        WasteAnalysisResult result = parseResponse(responseBody);
+                        callback.onSuccess(result);
+                    } else {
+                        callback.onError("Server error: " + response.code());
+                    }
+
+                } catch (Exception e) {
+                    Log.e(TAG, "Error parsing response", e);
+                    callback.onError("Error parsing response: " + e.getMessage());
+                }
+            }
+        });
     }
 
+    // ✅ Parse JSON returned by Flask
     private WasteAnalysisResult parseResponse(String responseBody) throws JSONException {
         JSONObject json = new JSONObject(responseBody);
 
@@ -121,9 +108,10 @@ public class NetworkHelper {
         return result;
     }
 
+    // ✅ (Optional) Get leaderboard (not used if no backend)
     public void getLeaderboard(LeaderboardCallback callback) {
         Request request = new Request.Builder()
-                .url(BASE_URL + "/waste/leaderboard")
+                .url("http://192.168.29.252:5000/waste/leaderboard") // use correct route if available
                 .get()
                 .build();
 
@@ -149,9 +137,10 @@ public class NetworkHelper {
         });
     }
 
+    // ✅ (Optional) Get user stats
     public void getUserStats(String userId, StatsCallback callback) {
         Request request = new Request.Builder()
-                .url(BASE_URL + "/waste/user/" + userId + "/stats")
+                .url("http://192.168.29.252:5000/waste/user/" + userId + "/stats")
                 .get()
                 .build();
 
@@ -177,7 +166,7 @@ public class NetworkHelper {
         });
     }
 
-    // Data classes
+    // ✅ Response object
     public static class WasteAnalysisResult {
         public String wasteType;
         public boolean sorted;
@@ -198,12 +187,14 @@ public class NetworkHelper {
                     ", score=" + score +
                     ", message='" + message + '\'' +
                     ", coinsEarned=" + coinsEarned +
+                    ", totalCoins=" + totalCoins +
+                    ", ranking=" + ranking +
                     ", success=" + success +
                     '}';
         }
     }
 
-    // Callback interfaces
+    // ✅ Callback interfaces
     public interface AnalysisCallback {
         void onSuccess(WasteAnalysisResult result);
         void onError(String error);
